@@ -1,0 +1,6 @@
+# syntax check, unit test, profiling
+flake8>=3.8.4
+pytest>=6.1.2
+# package mgmnt
+twine>=3.2.0
+m2r>=0.2.1
