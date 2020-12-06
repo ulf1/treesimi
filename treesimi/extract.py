@@ -1,5 +1,4 @@
-import copy
-from typing import List, Tuple, Union
+from typing import List, Tuple, Union, Optional
 DATA = Union[int, float, str, dict, list, tuple]
 
 
@@ -9,7 +8,7 @@ def remove_node_ids(nested: List[Tuple[int, int, int, int, DATA]]
 
 
 def extract_subtrees(nested: List[Tuple[int, int, int, DATA]]
-                     ) -> List[Tuple[int, int, int, DATA]]:
+                     ) -> List[List[Tuple[int, int, int, DATA]]]:
     """Extracting full subtrees from a nested set tables is
         basically O(n) copy & paste
     """
@@ -23,7 +22,7 @@ def extract_subtrees(nested: List[Tuple[int, int, int, DATA]]
 
 
 def trunc_leaves(nested: List[Tuple[int, int, int, DATA]]
-                 ) -> List[Tuple[int, int, int, DATA]]:
+                 ) -> List[List[Tuple[int, int, int, DATA]]]:
     """Reduce depth level to truncate leaves to create (incomplete) trees
     """
     max_depth = max([d for _, _, d, _ in nested])
@@ -34,7 +33,7 @@ def trunc_leaves(nested: List[Tuple[int, int, int, DATA]]
 
 
 def drop_nodes(nested: List[Tuple[int, int, int, DATA]]
-               ) -> List[Tuple[int, int, int, DATA]]:
+               ) -> List[List[Tuple[int, int, int, DATA]]]:
     """Drop each node once
     """
     subtrees = []
@@ -46,8 +45,8 @@ def drop_nodes(nested: List[Tuple[int, int, int, DATA]]
 
 
 def replace_attr(nested: List[Tuple[int, int, int, DATA]],
-                 placeholder: str = '[MASK]',
-                 ) -> List[Tuple[int, int, int, DATA]]:
+                 placeholder: Optional[str] = '[MASK]',
+                 ) -> List[List[Tuple[int, int, int, DATA]]]:
     """Replace attribute field
     """
     subtrees = []
