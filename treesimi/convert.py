@@ -3,11 +3,11 @@ DATA = Union[int, float, str, dict, list, tuple]
 
 
 def adjac_to_nested_recur(adjac: List[Tuple[int, int]],
-                          parent_id: Optional[int]=0,
-                          lft: Optional[int]=1,
-                          depth: Optional[int]=0,
-                          nested: List[Tuple[int, int, int, int]]=[]
-                         ) -> (int, List[Tuple[int, int, int, int]]):
+                          parent_id: Optional[int] = 0,
+                          lft: Optional[int] = 1,
+                          depth: Optional[int] = 0,
+                          nested: List[Tuple[int, int, int, int]] = []
+                          ) -> (int, List[Tuple[int, int, int, int]]):
     """Recursive function to traverse over an adjacency list model based
         tree to build the nested set model based tree
 
@@ -44,7 +44,7 @@ def adjac_to_nested_recur(adjac: List[Tuple[int, int]],
 
 def adjac_to_nested(adjac: List[Tuple[int, int]],
                     root_id: Optional[int] = 0
-                   ) -> List[Tuple[int, int, int, int, int]]:
+                    ) -> List[Tuple[int, int, int, int, int]]:
     """Convert Adjacancy List to Nested Set Table
 
     adjac : List[Tuple[int, int]]
@@ -132,4 +132,3 @@ def extract_all_subtrees(nested):
              for _, lfti, rgti, depi, attr in nested
              if (lfti >= lft0) and (rgti <= rgt0)])
     return subtrees
-
