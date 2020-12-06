@@ -5,8 +5,9 @@ DATA = Union[int, float, str, dict, list, tuple]
 def adjac_to_nested_recur(adjac: List[Tuple[int, int]],
                           parent_id: Optional[int]=0,
                           lft: Optional[int]=1,
-                          nested: List[Tuple[int, int, int]]=[]
-                         ) -> (int, List[Tuple[int, int, int]]):
+                          depth: Optional[int]=0,
+                          nested: List[Tuple[int, int, int, int]]=[]
+                         ) -> (int, List[Tuple[int, int, int, int]]):
     """Recursive function to traverse over an adjacency list model based
         tree to build the nested set model based tree
 
@@ -20,10 +21,14 @@ def adjac_to_nested_recur(adjac: List[Tuple[int, int]],
     lft : int
         The previous lft value of the nested set
 
+    depth : int
+        The current tree depth
+
     nested : List[Tuple[int, int, int]]
         Nested set table of the tree. The 1st column hold the node
-          IDs, the 2nd column are the "left" values, and the 3rd
-          column are the "right" values.
+          IDs, the 2nd column are the "left" values, in the 3rd column
+          are the "right" values, and the 4th column the node's depth
+          level.
     """
     # The next "rgt" value is at least "lft+1"
     rgt = lft + 1
@@ -32,14 +37,14 @@ def adjac_to_nested_recur(adjac: List[Tuple[int, int]],
     children = [nid for nid, pid in adjac if pid == parent_id]
     # Drill down till we reached each tree leaf
     for child in children:
-        rgt, _ = adjac_to_nested_recur(adjac, child, rgt, nested)
-    nested.append([parent_id, lft, rgt])
+        rgt, _ = adjac_to_nested_recur(adjac, child, rgt, depth + 1, nested)
+    nested.append([parent_id, lft, rgt, depth])
     return rgt + 1, nested
 
 
 def adjac_to_nested(adjac: List[Tuple[int, int]],
                     root_id: Optional[int] = 0
-                   ) -> List[Tuple[int, int, int]]:
+                   ) -> List[Tuple[int, int, int, int, int]]:
     """Convert Adjacancy List to Nested Set Table
 
     adjac : List[Tuple[int, int]]
@@ -53,8 +58,9 @@ def adjac_to_nested(adjac: List[Tuple[int, int]],
     -------
     nested : List[Tuple[int, int, int]]
         Nested set table of the tree. The 1st column hold the node
-          IDs, the 2nd column are the "left" values, and the 3rd
-          column are the "right" values.
+          IDs, the 2nd column are the "left" values, in the 3rd column
+          are the "right" values, and the 4th column the node's depth
+          level.
 
     Example:
     --------
@@ -68,7 +74,8 @@ def adjac_to_nested(adjac: List[Tuple[int, int]],
             parent_id = i
             break
     # start tree traversal
-    _, nested = adjac_to_nested_recur(adjac, parent_id=parent_id, lft=1)
+    _, nested = adjac_to_nested_recur(
+        adjac, parent_id=parent_id, lft=1, depth=0)
     # sorted nested set table
     nested = sorted(nested, key=lambda r: r[1])
     # done
@@ -76,9 +83,9 @@ def adjac_to_nested(adjac: List[Tuple[int, int]],
 
 
 def get_subtree(nested, sub_id):
-    if len(nested[0]) == 3:
+    if len(nested[0]) == 4:
         # find lft/rgt of sub_id
-        for i, l, r in nested:
+        for i, l, r, _ in nested:
             if i == sub_id:
                 lft0, rgt0 = l, r
                 break
@@ -86,31 +93,31 @@ def get_subtree(nested, sub_id):
         if 'lft0' not in vars():
             raise Exception(f"sub_id={sub_id} doesn't exist.")
         # iterate through list
-        return [[i, l, r] for i, l, r in nested
+        return [[i, l, r, d] for i, l, r, d in nested
                 if (l >= lft0) and (r <= rgt0)]
     else:
-        for i, l, r, _ in nested:
+        for i, l, r, _, _ in nested:
             if i == sub_id:
                 lft0, rgt0 = l, r
                 break
         if 'lft0' not in vars():
             raise Exception(f"sub_id={sub_id} doesn't exist.")
-        return [[i, l, r, a] for i, l, r, a in nested
+        return [[i, l, r, d, a] for i, l, r, d, a in nested
                 if (l >= lft0) and (r <= rgt0)]
 
 
-def set_attr(nested: List[Tuple[int, int, int]],
+def set_attr(nested: List[Tuple[int, int, int, int]],
              attr: List[Tuple[int, DATA]]
-             ) -> List[Tuple[int, int, int, DATA]]:
+             ) -> List[Tuple[int, int, int, int, DATA]]:
     """
     """
     # Add empty 4th column for attributes if not exist
-    if len(nested[0]) == 3:
-        nested = [[i, l, r, None] for i, l, r in nested]
+    if len(nested[0]) == 4:
+        nested = [[i, l, r, d, None] for i, l, r, d in nested]
     # add each attribute
     nid = [row[0] for row in nested]
     for i, dat in attr:
-        nested[nid.index(i)][3] = dat
+        nested[nid.index(i)][4] = dat
     return nested
 
 
@@ -119,10 +126,10 @@ def extract_all_subtrees(nested):
         basically O(n) copy & paste
     """
     subtrees = []
-    for _, lft0, rgt0, _ in nested:
+    for _, lft0, rgt0, dep0, _ in nested:
         subtrees.append(
-            [(lfti - lft0 + 1, rgti - lft0 + 1, attr)
-             for _, lfti, rgti, attr in nested
+            [[lfti - lft0 + 1, rgti - lft0 + 1, depi - dep0, attr]
+             for _, lfti, rgti, depi, attr in nested
              if (lfti >= lft0) and (rgti <= rgt0)])
     return subtrees
 

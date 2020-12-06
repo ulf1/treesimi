@@ -13,15 +13,16 @@ Thus, converting a adjacency list to a nested set table once, makes sense if we 
 import treesimi as ts
 adjac = [(1, 0), (2, 1), (3, 1), (4, 2)]
 nested = ts.adjac_to_nested(adjac)
-# [[1, 1, 8], [2, 2, 5], [4, 3, 4], [3, 6, 7]]
+# columns: node id, left, right, depth
+# [[1, 1, 8, 0], [2, 2, 5, 1], [4, 3, 4, 2], [3, 6, 7, 1]]
 ```
 
 To extract a subtree we just need to iterate through the list ($O(n)$)
 
 ```py
-_, lft0, rgt0 = nested[1]
-subtree = [(i, l, r) for i, l, r in nested if (l >= lft0) and (r <= rgt0)]
-# [[2, 2, 5], [4, 3, 4]]
+_, lft0, rgt0, _ = nested[1]
+subtree = [(i, l, r, d) for i, l, r, d in nested if (l >= lft0) and (r <= rgt0)]
+# [[2, 2, 5, 1], [4, 3, 4, 2]]
 ```
 
 or `ts.get_subtree(nested, sub_id=2)`
@@ -31,10 +32,11 @@ or `ts.get_subtree(nested, sub_id=2)`
 
 ```py
 import treesimi as ts
-nested = [[1, 1, 8], [2, 2, 5], [4, 3, 4], [3, 6, 7]]
+nested = [[1, 1, 8, 0], [2, 2, 5, 1], [4, 3, 4, 2], [3, 6, 7, 1]]
 attrs = [(1, 'a'), (2, 'b'), (3, 'c'), (4, 'd')]
 nested = ts.set_attr(nested, attrs)
-# [[1, 1, 8, 'a'], [2, 2, 5, 'b'], [4, 3, 4, 'd'], [3, 6, 7, 'c']]
+# columns: node id, left, right, depth, attributes
+# [[1, 1, 8, 0, 'a'], [2, 2, 5, 1, 'b'], [4, 3, 4, 2, 'd'], [3, 6, 7, 1, 'c']]
 ```
 
 
@@ -42,13 +44,13 @@ nested = ts.set_attr(nested, attrs)
 
 ```py
 import treesimi as ts
-nested = [[1, 1, 8, 'a'], [2, 2, 5, 'b'], [4, 3, 4, 'd'], [3, 6, 7, 'c']]
+nested = [[1, 1, 8, 0, 'a'], [2, 2, 5, 1, 'b'], [4, 3, 4, 2, 'd'], [3, 6, 7, 1, 'c']]
 subtrees = ts.extract_all_subtrees(nested)
 # [
-#   [(1, 8, 'a'), (2, 5, 'b'), (3, 4, 'd'), (6, 7, 'c')],
-#   [(1, 4, 'b'), (2, 3, 'd')],
-#   [(1, 2, 'd')],
-#   [(1, 2, 'c')]
+#    [[1, 8, 0, 'a'], [2, 5, 1, 'b'], [3, 4, 2, 'd'], [6, 7, 1, 'c']],
+#    [[1, 4, 0, 'b'], [2, 3, 1, 'd']],
+#    [[1, 2, 0, 'd']],
+#    [[1, 2, 0, 'c']]
 # ]
 ```
 
