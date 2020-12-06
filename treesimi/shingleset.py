@@ -1,7 +1,7 @@
 import copy
 from .extract import (
     remove_node_ids, extract_subtrees, trunc_leaves, drop_nodes, replace_attr)
-from .encode import  unique_trees
+from .encode import unique_trees
 from typing import List, Tuple, Union, Optional
 DATA = Union[int, float, str, dict, list, tuple]
 
