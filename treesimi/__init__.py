@@ -1,2 +1,4 @@
 from .convert import (
-    adjac_to_nested, set_attr, get_subtree, extract_all_subtrees)
+    adjac_to_nested, set_attr, get_subtree, adjac_to_nested_with_attr)
+from .extract import (
+    extract_full_subtrees, extract_trunc_leaves)

@@ -109,7 +109,7 @@ def get_subtree(nested, sub_id):
 def set_attr(nested: List[Tuple[int, int, int, int]],
              attr: List[Tuple[int, DATA]]
              ) -> List[Tuple[int, int, int, int, DATA]]:
-    """
+    """Join a data column to the nested set table
     """
     # Add empty 4th column for attributes if not exist
     if len(nested[0]) == 4:
@@ -121,14 +121,10 @@ def set_attr(nested: List[Tuple[int, int, int, int]],
     return nested
 
 
-def extract_all_subtrees(nested):
-    """Extracting subtrees from a nested set tables is
-        basically O(n) copy & paste
+def adjac_to_nested_with_attr(adjac: List[Tuple[int, int, DATA]]
+                              ) -> List[Tuple[int, int, int, int, DATA]]:
+    """Convert Adjacancy List to Nested Set Table with data column
     """
-    subtrees = []
-    for _, lft0, rgt0, dep0, _ in nested:
-        subtrees.append(
-            [[lfti - lft0 + 1, rgti - lft0 + 1, depi - dep0, attr]
-             for _, lfti, rgti, depi, attr in nested
-             if (lfti >= lft0) and (rgti <= rgt0)])
-    return subtrees
+    nested = adjac_to_nested([(i, p) for i, p, _ in adjac])
+    nested = set_attr(nested, [(i, d) for i, _, d in adjac])
+    return nested
