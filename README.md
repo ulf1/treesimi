@@ -67,6 +67,7 @@ The depth information is adjusted accordingly for each subtree.
 ```py
 import treesimi as ts
 nested = [[1, 1, 8, 0, 'a'], [2, 2, 5, 1, 'b'], [4, 3, 4, 2, 'd'], [3, 6, 7, 1, 'c']]
+nested = ts.remove_node_ids(nested)
 subtrees = ts.extract_subtrees(nested)
 # [
 #    [[1, 8, 0, 'a'], [2, 5, 1, 'b'], [3, 4, 2, 'd'], [6, 7, 1, 'c']],
@@ -84,9 +85,10 @@ In the next steps, the depth level is further removed down to `depth=1`.
 ```py
 import treesimi as ts
 nested = [[1, 1, 8, 0, 'a'], [2, 2, 5, 1, 'b'], [4, 3, 4, 2, 'd'], [3, 6, 7, 1, 'c']]
+nested = ts.remove_node_ids(nested)
 subtrees = ts.trunc_leaves(nested)
 # [
-#   [[1, 1, 8, 0, 'a'], [2, 2, 5, 1, 'b'], [3, 6, 7, 1, 'c']]
+#   [[1, 8, 0, 'a'], [2, 5, 1, 'b'], [6, 7, 1, 'c']]
 # ]
 ```
 
@@ -100,11 +102,12 @@ Again, the result is always an incomplete tree, and the `lft` and `rgt` values a
 ```py
 import treesimi as ts
 nested = [[1, 1, 8, 0, 'a'], [2, 2, 5, 1, 'b'], [4, 3, 4, 2, 'd'], [3, 6, 7, 1, 'c']]
+nested = ts.remove_node_ids(nested)
 subtrees = ts.drop_nodes(nested)
 # [
-#   [[1, 1, 8, 0, 'a']],
-#   [[1, 1, 8, 0, 'a'], [2, 2, 5, 1, 'b']],
-#   [[1, 1, 8, 0, 'a']]
+#   [[1, 8, 0, 'a']],
+#   [[1, 8, 0, 'a'], [2, 5, 1, 'b']],
+#   [[1, 8, 0, 'a']]
 # ]
 ```
 
@@ -117,13 +120,63 @@ The `replace_attr` removes the data attribute of a node with a generic placehold
 ```py
 import treesimi as ts
 nested = [[1, 1, 8, 0, 'a'], [2, 2, 5, 1, 'b'], [4, 3, 4, 2, 'd'], [3, 6, 7, 1, 'c']]
+nested = ts.remove_node_ids(nested)
 subtrees = ts.replace_attr(nested, placeholder='[MASK]')
 # [
-#   [[1, 1, 8, 0, '[MASK]'], [2, 2, 5, 1, 'b'], [4, 3, 4, 2, 'd'], [3, 6, 7, 1, 'c']],
-#   [[1, 1, 8, 0, 'a'], [2, 2, 5, 1, '[MASK]'], [4, 3, 4, 2, 'd'], [3, 6, 7, 1, 'c']], 
-#   [[1, 1, 8, 0, 'a'], [2, 2, 5, 1, 'b'], [4, 3, 4, 2, '[MASK]'], [3, 6, 7, 1, 'c']], 
-#   [[1, 1, 8, 0, 'a'], [2, 2, 5, 1, 'b'], [4, 3, 4, 2, 'd'], [3, 6, 7, 1, '[MASK]']]
+#   [[1, 8, 0, '[MASK]'], [2, 5, 1, 'b'], [3, 4, 2, 'd'], [6, 7, 1, 'c']],
+#   [[1, 8, 0, 'a'], [2, 5, 1, '[MASK]'], [3, 4, 2, 'd'], [6, 7, 1, 'c']], 
+#   [[1, 8, 0, 'a'], [2, 5, 1, 'b'], [3, 4, 2, '[MASK]'], [6, 7, 1, 'c']], 
+#   [[1, 8, 0, 'a'], [2, 5, 1, 'b'], [3, 4, 2, 'd'], [6, 7, 1, '[MASK]']]
 # ]
+```
+
+## Demo: Create subtrees as shingle sets
+
+```sh
+mkdir data
+wget -O "data/de_hdt-ud-dev.conllu" "https://raw.githubusercontent.com/UniversalDependencies/UD_German-HDT/master/de_hdt-ud-dev.conllu"
+pip install conllu
+```
+
+```py
+import conllu
+import treesimi as ts
+import copy
+
+# load dataset
+dat = conllu.parse(open("data/de_hdt-ud-dev.conllu").read())
+# adjacancy list model
+adjac = [(t['id'], t['head'], t['deprel']) for t in dat[1]]
+# convert to nested set mode
+nested = ts.adjac_to_nested_with_attr(adjac)
+nested = ts.remove_node_ids(nested)
+
+# Extract full subtrees
+trees = ts.extract_subtrees(nested)
+trees.append(nested)  # add original tree
+trees = ts.unique_trees(trees)
+print(f"#num subtrees: {len(trees)}")  # -> 13
+
+# Truncate leaves
+for tmp in copy.deepcopy(trees):
+    trees.extend(ts.trunc_leaves(tmp))
+
+trees = ts.unique_trees(trees)
+print(f"#num subtrees: {len(trees)}")  # -> 24
+
+# Drop nodes
+for tmp in copy.deepcopy(trees):
+    trees.extend(ts.drop_nodes(tmp))
+
+trees = ts.unique_trees(trees)
+print(f"#num subtrees: {len(trees)}")  # -> 45
+
+# Mask data attributes
+for tmp in copy.deepcopy(trees):
+    trees.extend(ts.replace_attr(tmp, placeholder='[MASK]'))
+
+trees = ts.unique_trees(trees)
+print(f"#num subtrees: {len(trees)}")  # -> 226
 ```
 
 
