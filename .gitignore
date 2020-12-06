@@ -106,5 +106,5 @@ venv.bak/
 
 # other
 .vscode
-profile/data*
+data
 .theia
