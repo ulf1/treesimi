@@ -38,10 +38,10 @@ def drop_nodes(nested: List[Tuple[int, int, int, DATA]]
     """Drop each node once
     """
     subtrees = []
-    for lft0, rgt0, dep0, _ in nested:
+    for lft0, rgt0, _, _ in nested:
         if lft0 > 1:
-            subtrees.append([[l, r, d, a] for l, r, d, a in nested
-                            if (l < lft0) and (r > rgt0)])
+            subtrees.append([[lft, rgt, d, a] for lft, rgt, d, a in nested
+                            if (lft < lft0) and (rgt > rgt0)])
     return subtrees
 
 
