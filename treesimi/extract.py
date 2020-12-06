@@ -1,3 +1,4 @@
+import copy
 from typing import List, Tuple, Union, Optional
 DATA = Union[int, float, str, dict, list, tuple]
 
@@ -45,7 +46,7 @@ def drop_nodes(nested: List[Tuple[int, int, int, DATA]]
 
 
 def replace_attr(nested: List[Tuple[int, int, int, DATA]],
-                 placeholder: Optional[str] = '[MASK]',
+                 placeholder: Optional[str] = '\uFFFF',
                  ) -> List[List[Tuple[int, int, int, DATA]]]:
     """Replace attribute field
     """
