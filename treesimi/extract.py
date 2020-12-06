@@ -3,6 +3,11 @@ from typing import List, Tuple, Union
 DATA = Union[int, float, str, dict, list, tuple]
 
 
+def remove_node_ids(nested: List[Tuple[int, int, int, int, DATA]]
+                    ) -> List[Tuple[int, int, int, DATA]]:
+    return [[l, r, d, a] for _, l, r, d, a in nested]
+
+
 def extract_subtrees(nested: List[Tuple[int, int, int, DATA]]
                      ) -> List[Tuple[int, int, int, DATA]]:
     """Extracting full subtrees from a nested set tables is
