@@ -179,6 +179,28 @@ trees = ts.unique_trees(trees)
 print(f"#num subtrees: {len(trees)}")  # -> 226
 ```
 
+or 
+
+```py
+import conllu
+import treesimi as ts
+import copy
+
+# load dataset
+dat = conllu.parse(open("data/de_hdt-ud-dev.conllu").read())
+# adjacancy list model
+adjac = [(t['id'], t['head'], t['deprel']) for t in dat[1]]
+# convert to nested set mode
+nested = ts.adjac_to_nested_with_attr(adjac)
+nested = ts.remove_node_ids(nested)
+
+# generate shingled subtrees
+shingled = ts.shingleset(nested)
+
+# hash the shingles
+hashed = [ts.to_hash(tree).hexdigest() for tree in shingled]
+```
+
 
 ## Appendix
 
