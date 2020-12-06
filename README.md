@@ -111,6 +111,21 @@ subtrees = ts.drop_nodes(nested)
 Hints: Create subtrees with `extract_subtrees` and `trunc_leaves`, and run `drop_nodes` on these subtrees. If you want to drop N nodes/leaves of a tree, then call the function twice, e.g. `drop_nodes(drop_nodes(...))`.
 
 
+### Placeholder attribute field
+The `replace_attr` removes the data attribute of a node with a generic placeholder.
+
+```py
+import treesimi as ts
+nested = [[1, 1, 8, 0, 'a'], [2, 2, 5, 1, 'b'], [4, 3, 4, 2, 'd'], [3, 6, 7, 1, 'c']]
+subtrees = ts.replace_attr(nested, placeholder='[MASK]')
+# [
+#   [[1, 1, 8, 0, '[MASK]'], [2, 2, 5, 1, 'b'], [4, 3, 4, 2, 'd'], [3, 6, 7, 1, 'c']],
+#   [[1, 1, 8, 0, 'a'], [2, 2, 5, 1, '[MASK]'], [4, 3, 4, 2, 'd'], [3, 6, 7, 1, 'c']], 
+#   [[1, 1, 8, 0, 'a'], [2, 2, 5, 1, 'b'], [4, 3, 4, 2, '[MASK]'], [3, 6, 7, 1, 'c']], 
+#   [[1, 1, 8, 0, 'a'], [2, 2, 5, 1, 'b'], [4, 3, 4, 2, 'd'], [3, 6, 7, 1, '[MASK]']]
+# ]
+```
+
 
 ## Appendix
 
