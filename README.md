@@ -179,26 +179,38 @@ trees = ts.unique_trees(trees)
 print(f"#num subtrees: {len(trees)}")  # -> 226
 ```
 
-or 
+## Demo: datasketch example
+
+```sh
+pip install datasketch conllu
+```
 
 ```py
 import conllu
 import treesimi as ts
-import copy
+import datasketch
+import json
 
 # load dataset
 dat = conllu.parse(open("data/de_hdt-ud-dev.conllu").read())
-# adjacancy list model
-adjac = [(t['id'], t['head'], t['deprel']) for t in dat[1]]
-# convert to nested set mode
-nested = ts.adjac_to_nested_with_attr(adjac)
-nested = ts.remove_node_ids(nested)
 
-# generate shingled subtrees
-shingled = ts.shingleset(nested)
+# generate shinglesets
+mhash = []
+for i in (54, 51, 56, 57, 58):
+    adjac = [(t['id'], t['head'], t['deprel']) for t in dat[i]]
+    nested = ts.adjac_to_nested_with_attr(adjac)
+    nested = ts.remove_node_ids(nested)
+    shingled = ts.shingleset(nested)
+    #hashed = [ts.to_hash(tree).hexdigest() for tree in shingled]
+    stringified = [json.dumps(tree).encode('utf-8') for tree in shingled]
+    m = datasketch.MinHash(num_perm=256)
+    for s in stringified:
+        m.update(s)
+    mhash.append(m)
 
-# hash the shingles
-hashed = [ts.to_hash(tree).hexdigest() for tree in shingled]
+# compute Jaccard Similarities
+for i in range(len(mhash)):
+    print(mhash[0].jaccard(mhash[i]))
 ```
 
 
