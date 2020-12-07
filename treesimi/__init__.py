@@ -4,3 +4,4 @@ from .extract import (
     remove_node_ids, extract_subtrees, trunc_leaves, drop_nodes, replace_attr)
 from .encode import (
     to_hash, unique_trees)
+from .shingleset import shingleset
