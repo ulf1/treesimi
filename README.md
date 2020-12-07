@@ -195,12 +195,13 @@ import json
 dat = conllu.parse(open("data/de_hdt-ud-dev.conllu").read())
 
 # generate shinglesets
+cfg = {'use_trunc_leaves': False, 'use_drop_nodes': False, 'use_replace_attr': True}
 mhash = []
 for i in (54, 51, 56, 57, 58):
     adjac = [(t['id'], t['head'], t['deprel']) for t in dat[i]]
     nested = ts.adjac_to_nested_with_attr(adjac)
     nested = ts.remove_node_ids(nested)
-    shingled = ts.shingleset(nested)
+    shingled = ts.shingleset(nested, **cfg)
     #hashed = [ts.to_hash(tree).hexdigest() for tree in shingled]
     stringified = [json.dumps(tree).encode('utf-8') for tree in shingled]
     m = datasketch.MinHash(num_perm=256)
