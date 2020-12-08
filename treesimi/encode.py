@@ -1,6 +1,6 @@
 import json
 import hashlib
-from typing import List
+from typing import List, Union
 ELEMENT = Union[int, float, str, dict, list, tuple]
 
 
