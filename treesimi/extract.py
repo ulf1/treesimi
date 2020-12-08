@@ -3,7 +3,8 @@ from typing import List, Tuple, Union, Optional
 DATA = Union[int, float, str, dict, list, tuple]
 
 
-def remove_node_ids(nested: List[Tuple[int, int, int, int, DATA]]
+def remove_node_ids(nested: List[Tuple[int, int, int, int, DATA]],
+                    nodeid_to_attr: Optional[bool] = False
                     ) -> List[Tuple[int, int, int, DATA]]:
     """Remove the node IDs in the 1st column from the nested set table
 
@@ -18,6 +19,10 @@ def remove_node_ids(nested: List[Tuple[int, int, int, int, DATA]]
             3: Depth level (root is 0)
             4: Attributes related to the node ID
 
+    nodeid_to_attr : bool  (Default: False)
+        Flag if the node IDs should be stored in the attr column.
+          If the attribute column is not a dict object, the existing
+          data is moved into {'data': data, 'nodeid': ...}
     Returns:
     --------
     nested : List[Tuple[int, int, int, int, DATA]]
@@ -33,9 +38,20 @@ def remove_node_ids(nested: List[Tuple[int, int, int, int, DATA]]
         import treesimi as ts
         nested = [[1, 1, 8, 0, 'a'], [2, 2, 5, 1, 'b'],
                   [4, 3, 4, 2, 'd'], [3, 6, 7, 1, 'c']]
-        nested = ts.remove_node_ids(nested)
+        nested1 = ts.remove_node_ids(nested)
+        nested2 = ts.remove_node_ids(nested, nodeid_to_attr=True)
     """
-    return [[l, r, d, a] for _, l, r, d, a in nested]
+    if nodeid_to_attr:
+        newlist = []
+        for i, l, r, d, a in nested:
+            if isinstance(a, dict):
+                a['nodeid'] = i
+            else:
+                a = {'nodeid': i, 'data': a}
+            newlist.append([l, r, d, a])
+        return newlist
+    else:
+        return [[l, r, d, a] for _, l, r, d, a in nested]
 
 
 def extract_subtrees(nested: List[Tuple[int, int, int, DATA]]
