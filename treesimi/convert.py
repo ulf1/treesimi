@@ -31,6 +31,13 @@ def adjac_to_nested_recur(adjac: List[Tuple[int, int]],
           IDs, the 2nd column are the "left" values, in the 3rd column
           are the "right" values, and the 4th column the node's depth
           level.
+
+    Example:
+    --------
+        from treesimi.convert import adjac_to_nested_recur
+        adjac = [(1, 0), (2, 1), (3, 1), (4, 2)]
+        _, nested = adjac_to_nested_recur(
+            adjac, parent_id=1, lft=1, depth=0, nested=[])
     """
     # The next "rgt" value is at least "lft+1"
     rgt = lft + 1
