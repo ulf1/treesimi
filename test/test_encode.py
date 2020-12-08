@@ -8,6 +8,7 @@ def test1():
     hashed = ts.to_hash(tree)
     assert hashed.hexdigest() == target.hexdigest()
 
+
 def test2():
     trees = [1, 1, 1, 2, 2, 'A', 'A', [2, 3, 4], [2, 3, 4]]
     utrees = ts.unique_trees(trees)
