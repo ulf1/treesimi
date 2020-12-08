@@ -41,7 +41,7 @@ def drop_nodes(nested: List[Tuple[int, int, int, DATA]]
     for lft0, rgt0, _, _ in nested:
         if lft0 > 1:
             subtrees.append([[lft, rgt, d, a] for lft, rgt, d, a in nested
-                            if (lft < lft0) and (rgt > rgt0)])
+                            if (lft < lft0) or (rgt > rgt0)])
     return subtrees
 
 
