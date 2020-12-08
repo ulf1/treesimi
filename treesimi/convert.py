@@ -16,8 +16,10 @@ def adjac_to_nested_recur(adjac: List[Tuple[int, int]],
     Parameters:
     -----------
     adjac : List[Tuple[int, int]]
-        Adjacency list of the tree. The 1st column contains the
-          node IDs, and the 2nd column the parent's ID of the node
+        Adjacency list of the tree. The columns contain the following
+          information:
+            0: Node ID
+            1: Parent ID of the node
 
     parent_id : int
         The current parent ID of the adjacency list
@@ -71,8 +73,10 @@ def adjac_to_nested(adjac: List[Tuple[int, int]],
     Parameters:
     -----------
     adjac : List[Tuple[int, int]]
-        Adjacency list of the tree. The 1st column contains the
-          node IDs, and the 2nd column the parent's ID of the node
+        Adjacency list of the tree. The columns contain the following
+          information:
+            0: Node ID
+            1: Parent ID of the node
 
     root_id : int = 0
         In CoNLL-U the root is usually "0"
@@ -151,7 +155,7 @@ def set_attr(nested: List[Tuple[int, int, int, int]],
         A list of node IDs and their data attributes. The columns contain the
           the following information:
             0: Node ID
-            4: Attributes related to the node ID
+            1: Attributes related to the node ID
 
     Returns:
     --------
@@ -185,6 +189,32 @@ def set_attr(nested: List[Tuple[int, int, int, int]],
 def adjac_to_nested_with_attr(adjac: List[Tuple[int, int, DATA]]
                               ) -> List[Tuple[int, int, int, int, DATA]]:
     """Convert Adjacancy List to Nested Set Table with data column
+
+    Parameters:
+    -----------
+    adjac : List[Tuple[int, int, DATA]]
+        Adjacency list of the tree. The columns contain the following
+          information:
+            0: Node ID
+            1: Parent ID of the node
+            2: Attributes related to the node ID
+
+    Return:
+    -------
+    nested : List[Tuple[int, int, int, int, DATA]]
+        Nested set table of the tree. The columns contain the following
+          information: 
+            0: Node ID
+            1: Left value (root is 1)
+            2: Right value
+            3: Depth level (root is 0)
+            4: Attributes related to the node ID
+
+    Example:
+    --------
+        import treesimi as ts
+        adjac = [(1, 2, 'A'), (2, 0, 'B'), (3, 2, 'C'), (4, 3, 'D')]
+        nested = ts.adjac_to_nested_with_attr(adjac)
     """
     nested = adjac_to_nested([(i, p) for i, p, _ in adjac])
     nested = set_attr(nested, [(i, d) for i, _, d in adjac])

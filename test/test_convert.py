@@ -49,3 +49,14 @@ def test4():
     assert [2, None, None, None, 'B'] in nested2
     assert [3, None, None, None, 'C'] in nested2
     assert [4, None, None, None, 'D'] in nested2
+    assert len(nested2) == 4
+
+
+def test5():
+    adjac = [(1, 2, 'A'), (2, 0, 'B'), (3, 2, 'C'), (4, 3, 'D')]
+    nested = ts.adjac_to_nested_with_attr(adjac)
+    assert [2, 1, 8, 0, 'B'] in nested
+    assert [1, 2, 3, 1, 'A'] in nested
+    assert [3, 4, 7, 1, 'C'] in nested
+    assert [4, 5, 6, 2, 'D'] in nested
+    assert len(nested) == 4
