@@ -11,9 +11,15 @@ def adjac_to_nested_recur(adjac: List[Tuple[int, int]],
     """Recursive function to traverse over an adjacency list model based
         tree to build the nested set model based tree
 
+    Don't use this function directly. Please call `treesimi.adjac_to_nested`
+
+    Parameters:
+    -----------
     adjac : List[Tuple[int, int]]
-        Adjacency list of the tree. The 1st column contains the
-          node IDs, and the 2nd column the parent's ID of the node
+        Adjacency list of the tree. The columns contain the following
+          information:
+            0: Node ID
+            1: Parent ID of the node
 
     parent_id : int
         The current parent ID of the adjacency list
@@ -24,11 +30,28 @@ def adjac_to_nested_recur(adjac: List[Tuple[int, int]],
     depth : int
         The current tree depth
 
-    nested : List[Tuple[int, int, int]]
-        Nested set table of the tree. The 1st column hold the node
-          IDs, the 2nd column are the "left" values, in the 3rd column
-          are the "right" values, and the 4th column the node's depth
-          level.
+    nested: List[Tuple[int, int, int, int]]
+        see below
+
+    Returns:
+    --------
+    rgt + 1 : int
+        The next node's left value
+
+    nested : List[Tuple[int, int, int, int]]
+        Nested set table of the tree. The columns contain the following
+          information:
+            0: Node ID
+            1: Left value (root is 1)
+            2: Right value
+            3: Depth level (root is 0)
+
+    Example:
+    --------
+        from treesimi.convert import adjac_to_nested_recur
+        adjac = [(1, 0), (2, 1), (3, 1), (4, 2)]
+        _, nested = adjac_to_nested_recur(
+            adjac, parent_id=1, lft=1, depth=0, nested=[])
     """
     # The next "rgt" value is at least "lft+1"
     rgt = lft + 1
@@ -47,20 +70,26 @@ def adjac_to_nested(adjac: List[Tuple[int, int]],
                     ) -> List[Tuple[int, int, int, int, int]]:
     """Convert Adjacancy List to Nested Set Table
 
+    Parameters:
+    -----------
     adjac : List[Tuple[int, int]]
-        Adjacency list of the tree. The 1st column contains the
-          node IDs, and the 2nd column the parent's ID of the node
+        Adjacency list of the tree. The columns contain the following
+          information:
+            0: Node ID
+            1: Parent ID of the node
 
     root_id : int = 0
         In CoNLL-U the root is usually "0"
 
     Return:
     -------
-    nested : List[Tuple[int, int, int]]
-        Nested set table of the tree. The 1st column hold the node
-          IDs, the 2nd column are the "left" values, in the 3rd column
-          are the "right" values, and the 4th column the node's depth
-          level.
+    nested : List[Tuple[int, int, int, int]]
+        Nested set table of the tree. The columns contain the following
+          information:
+            0: Node ID
+            1: Left value (root is 1)
+            2: Right value
+            3: Depth level (root is 0)
 
     Example:
     --------
@@ -75,7 +104,7 @@ def adjac_to_nested(adjac: List[Tuple[int, int]],
             break
     # start tree traversal
     _, nested = adjac_to_nested_recur(
-        adjac, parent_id=parent_id, lft=1, depth=0)
+        adjac, parent_id=parent_id, lft=1, depth=0, nested=[])
     # sorted nested set table
     nested = sorted(nested, key=lambda r: r[1])
     # done
@@ -110,6 +139,42 @@ def set_attr(nested: List[Tuple[int, int, int, int]],
              attr: List[Tuple[int, DATA]]
              ) -> List[Tuple[int, int, int, int, DATA]]:
     """Join a data column to the nested set table
+
+    Parameters:
+    -----------
+    nested : List[Tuple[int, int, int, int]]
+        Nested set table of the tree. The columns contain the following
+          information:
+            0: Node ID
+            1: Left value (root is 1)
+            2: Right value
+            3: Depth level (root is 0)
+        If an attribute column already exist, then it will be overwritten.
+
+    attr : List[Tuple[int, DATA]]
+        A list of node IDs and their data attributes. The columns contain the
+          the following information:
+            0: Node ID
+            1: Attributes related to the node ID
+
+    Returns:
+    --------
+    nested : List[Tuple[int, int, int, int, DATA]]
+        Nested set table of the tree. The columns contain the following
+          information:
+            0: Node ID
+            1: Left value (root is 1)
+            2: Right value
+            3: Depth level (root is 0)
+            4: Attributes related to the node ID
+
+    Example:
+    --------
+        import treesimi as ts
+        nested = [[1, None, None, None], [2, None, None, None]]
+        attrs = [(1, 'A'), (2, 'B')]
+        nested2 = ts.set_attr(nested, attrs)
+        # [[1, None, None, None, 'A'], [2, None, None, None, 'B']]
     """
     # Add empty 4th column for attributes if not exist
     if len(nested[0]) == 4:
@@ -124,6 +189,32 @@ def set_attr(nested: List[Tuple[int, int, int, int]],
 def adjac_to_nested_with_attr(adjac: List[Tuple[int, int, DATA]]
                               ) -> List[Tuple[int, int, int, int, DATA]]:
     """Convert Adjacancy List to Nested Set Table with data column
+
+    Parameters:
+    -----------
+    adjac : List[Tuple[int, int, DATA]]
+        Adjacency list of the tree. The columns contain the following
+          information:
+            0: Node ID
+            1: Parent ID of the node
+            2: Attributes related to the node ID
+
+    Return:
+    -------
+    nested : List[Tuple[int, int, int, int, DATA]]
+        Nested set table of the tree. The columns contain the following
+          information:
+            0: Node ID
+            1: Left value (root is 1)
+            2: Right value
+            3: Depth level (root is 0)
+            4: Attributes related to the node ID
+
+    Example:
+    --------
+        import treesimi as ts
+        adjac = [(1, 2, 'A'), (2, 0, 'B'), (3, 2, 'C'), (4, 3, 'D')]
+        nested = ts.adjac_to_nested_with_attr(adjac)
     """
     nested = adjac_to_nested([(i, p) for i, p, _ in adjac])
     nested = set_attr(nested, [(i, d) for i, _, d in adjac])
