@@ -49,6 +49,8 @@ def adjac_to_nested(adjac: List[Tuple[int, int]],
                     ) -> List[Tuple[int, int, int, int, int]]:
     """Convert Adjacancy List to Nested Set Table
 
+    Parameters:
+    -----------
     adjac : List[Tuple[int, int]]
         Adjacency list of the tree. The 1st column contains the
           node IDs, and the 2nd column the parent's ID of the node
