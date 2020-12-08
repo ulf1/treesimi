@@ -40,7 +40,7 @@ def adjac_to_nested_recur(adjac: List[Tuple[int, int]],
 
     nested : List[Tuple[int, int, int, int]]
         Nested set table of the tree. The columns contain the following
-          information: 
+          information:
             0: Node ID
             1: Left value (root is 1)
             2: Right value
@@ -85,7 +85,7 @@ def adjac_to_nested(adjac: List[Tuple[int, int]],
     -------
     nested : List[Tuple[int, int, int, int]]
         Nested set table of the tree. The columns contain the following
-          information: 
+          information:
             0: Node ID
             1: Left value (root is 1)
             2: Right value
@@ -144,7 +144,7 @@ def set_attr(nested: List[Tuple[int, int, int, int]],
     -----------
     nested : List[Tuple[int, int, int, int]]
         Nested set table of the tree. The columns contain the following
-          information: 
+          information:
             0: Node ID
             1: Left value (root is 1)
             2: Right value
@@ -161,7 +161,7 @@ def set_attr(nested: List[Tuple[int, int, int, int]],
     --------
     nested : List[Tuple[int, int, int, int, DATA]]
         Nested set table of the tree. The columns contain the following
-          information: 
+          information:
             0: Node ID
             1: Left value (root is 1)
             2: Right value
@@ -203,7 +203,7 @@ def adjac_to_nested_with_attr(adjac: List[Tuple[int, int, DATA]]
     -------
     nested : List[Tuple[int, int, int, int, DATA]]
         Nested set table of the tree. The columns contain the following
-          information: 
+          information:
             0: Node ID
             1: Left value (root is 1)
             2: Right value
