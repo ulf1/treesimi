@@ -169,14 +169,14 @@ for tmp in copy.deepcopy(trees):
     trees.extend(ts.drop_nodes(tmp))
 
 trees = ts.unique_trees(trees)
-print(f"#num subtrees: {len(trees)}")  # -> 45
+print(f"#num subtrees: {len(trees)}")  # -> 118
 
 # Mask data attributes
 for tmp in copy.deepcopy(trees):
     trees.extend(ts.replace_attr(tmp, placeholder='[MASK]'))
 
 trees = ts.unique_trees(trees)
-print(f"#num subtrees: {len(trees)}")  # -> 226
+print(f"#num subtrees: {len(trees)}")  # -> 1204
 ```
 
 ## Demo: datasketch example
@@ -195,7 +195,7 @@ import json
 dat = conllu.parse(open("data/de_hdt-ud-dev.conllu").read())
 
 # generate shinglesets
-cfg = {'use_trunc_leaves': False, 'use_drop_nodes': False, 'use_replace_attr': True}
+cfg = {'use_trunc_leaves': True, 'use_drop_nodes': False, 'use_replace_attr': False}
 mhash = []
 for i in (54, 51, 56, 57, 58):
     adjac = [(t['id'], t['head'], t['deprel']) for t in dat[i]]
