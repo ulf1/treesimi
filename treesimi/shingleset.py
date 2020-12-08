@@ -7,9 +7,9 @@ DATA = Union[int, float, str, dict, list, tuple]
 
 
 def shingleset(nested: List[Tuple[int, int, int, DATA]],
-               use_trunc_leaves: Optional[bool] = True,
-               use_drop_nodes: Optional[bool] = True,
-               use_replace_attr: Optional[bool] = True,
+               use_trunc_leaves: Optional[bool] = False,
+               use_drop_nodes: Optional[bool] = False,
+               use_replace_attr: Optional[bool] = False,
                placeholder: Optional[str] = '\uFFFF',
                ) -> List[List[Tuple[int, int, int, DATA]]]:
     if len(nested[0]) == 5:
