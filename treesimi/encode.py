@@ -3,6 +3,7 @@ import hashlib
 
 
 def to_hash(tree):
+    """Stringify and hash a python list"""
     return hashlib.sha512(json.dumps(tree).encode('utf-8'))
 
 
