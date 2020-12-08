@@ -30,3 +30,12 @@ def test2():
     assert [1, 1, 8, 0] in nested
     assert len(nested) == 4
 
+
+def test3():
+    adjac = [(1, 0), (2, 1), (3, 1), (4, 2)]
+    nested = ts.adjac_to_nested(adjac)
+    assert [1, 1, 8, 0] in nested
+    assert [2, 2, 5, 1] in nested
+    assert [4, 3, 4, 2] in nested
+    assert [3, 6, 7, 1] in nested
+    assert len(nested) == 4

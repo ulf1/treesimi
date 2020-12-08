@@ -88,7 +88,7 @@ def adjac_to_nested(adjac: List[Tuple[int, int]],
             break
     # start tree traversal
     _, nested = adjac_to_nested_recur(
-        adjac, parent_id=parent_id, lft=1, depth=0)
+        adjac, parent_id=parent_id, lft=1, depth=0, nested=[])
     # sorted nested set table
     nested = sorted(nested, key=lambda r: r[1])
     # done
