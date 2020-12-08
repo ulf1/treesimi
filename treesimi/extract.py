@@ -79,6 +79,19 @@ def trunc_leaves(nested: List[Tuple[int, int, int, DATA]]
             3: Attributes related to the node ID
         Please note, that you need to remove the node IDs beforehand,
           e.g. use `treesimi.remove_node_ids`
+
+    Returns:
+    --------
+    List[List[Tuple[int, int, int, DATA]]]
+        A list of nested set based trees
+
+    Example:
+    --------
+        import treesimi as ts
+        nested = [[1, 1, 8, 0, 'a'], [2, 2, 5, 1, 'b'],
+                  [4, 3, 4, 2, 'd'], [3, 6, 7, 1, 'c']]
+        nested = ts.remove_node_ids(nested)
+        subtrees = ts.trunc_leaves(nested)
     """
     max_depth = max([d for _, _, d, _ in nested])
     subtrees = []
