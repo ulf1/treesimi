@@ -3,8 +3,13 @@ import treesimi as ts
 
 def test1():
     nested = [[1, 1, 4, 0, 'A'], [2, 2, 3, 1, 'B']]
+
     nested2 = ts.remove_node_ids(nested)
     assert nested2 == [[1, 4, 0, 'A'], [2, 3, 1, 'B']]
+
+    nested3 = ts.remove_node_ids(nested, nodeid_to_attr=True)
+    assert nested3 == [[1, 4, 0, {'nodeid': 1, 'data': 'A'}],
+                       [2, 3, 1, {'nodeid': 2, 'data': 'B'}]]
 
 
 def test2():
