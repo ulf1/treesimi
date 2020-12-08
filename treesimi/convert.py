@@ -145,6 +145,7 @@ def set_attr(nested: List[Tuple[int, int, int, int]],
             1: Left value (root is 1)
             2: Right value
             3: Depth level (root is 0)
+        If an attribute column already exist, then it will be overwritten.
 
     attr : List[Tuple[int, DATA]]
         A list of node IDs and their data attributes. The columns contain the
