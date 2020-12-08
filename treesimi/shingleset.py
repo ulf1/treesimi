@@ -17,7 +17,6 @@ def shingleset(nested: List[Tuple[int, int, int, DATA]],
 
     # Extract full subtrees
     trees = extract_subtrees(nested)
-    trees.append(nested)  # add original tree
     trees = unique_trees(trees)
 
     # Truncate leaves
