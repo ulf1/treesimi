@@ -12,7 +12,8 @@ def test1():
 def test2():
     nested = [[1, 8, 0, 'A'], [2, 3, 1, 'B'], [4, 7, 1, 'C'], [5, 6, 2, 'D']]
     shingles = ts.shingleset(nested)
-    assert [[1, 8, 0, 'A'], [2, 3, 1, 'B'], [4, 7, 1, 'C'], [5, 6, 2, 'D']] in shingles
+    assert [[1, 8, 0, 'A'], [2, 3, 1, 'B'],
+            [4, 7, 1, 'C'], [5, 6, 2, 'D']] in shingles
     assert [[1, 4, 0, 'C'], [2, 3, 1, 'D']] in shingles
     assert [[1, 2, 0, 'D']] in shingles
     assert [[1, 2, 0, 'B']] in shingles
@@ -23,7 +24,8 @@ def test3():
     nested = [[1, 8, 0, 'A'], [2, 3, 1, 'B'], [4, 7, 1, 'C'], [5, 6, 2, 'D']]
     cfg = {'use_trunc_leaves': True}
     shingles = ts.shingleset(nested, **cfg)
-    assert [[1, 8, 0, 'A'], [2, 3, 1, 'B'], [4, 7, 1, 'C'], [5, 6, 2, 'D']] in shingles
+    assert [[1, 8, 0, 'A'], [2, 3, 1, 'B'],
+            [4, 7, 1, 'C'], [5, 6, 2, 'D']] in shingles
     assert [[1, 4, 0, 'C'], [2, 3, 1, 'D']] in shingles
     assert [[1, 2, 0, 'D']] in shingles
     assert [[1, 2, 0, 'B']] in shingles
@@ -36,7 +38,8 @@ def test4():
     nested = [[1, 8, 0, 'A'], [2, 3, 1, 'B'], [4, 7, 1, 'C'], [5, 6, 2, 'D']]
     cfg = {'use_drop_nodes': True}
     shingles = ts.shingleset(nested, **cfg)
-    assert [[1, 8, 0, 'A'], [2, 3, 1, 'B'], [4, 7, 1, 'C'], [5, 6, 2, 'D']] in shingles
+    assert [[1, 8, 0, 'A'], [2, 3, 1, 'B'],
+            [4, 7, 1, 'C'], [5, 6, 2, 'D']] in shingles
     assert [[1, 4, 0, 'C'], [2, 3, 1, 'D']] in shingles
     assert [[1, 2, 0, 'D']] in shingles
     assert [[1, 2, 0, 'B']] in shingles
@@ -53,15 +56,20 @@ def test5():
     nested = [[1, 8, 0, 'A'], [2, 3, 1, 'B'], [4, 7, 1, 'C'], [5, 6, 2, 'D']]
     cfg = {'use_replace_attr': True, 'placeholder': '😃'}
     shingles = ts.shingleset(nested, **cfg)
-    assert [[1, 8, 0, 'A'], [2, 3, 1, 'B'], [4, 7, 1, 'C'], [5, 6, 2, 'D']] in shingles
+    assert [[1, 8, 0, 'A'], [2, 3, 1, 'B'],
+            [4, 7, 1, 'C'], [5, 6, 2, 'D']] in shingles
     assert [[1, 4, 0, 'C'], [2, 3, 1, 'D']] in shingles
     assert [[1, 2, 0, 'D']] in shingles
     assert [[1, 2, 0, 'B']] in shingles
     # replace 1/4
-    assert [[1, 8, 0, '😃'], [2, 3, 1, 'B'], [4, 7, 1, 'C'], [5, 6, 2, 'D']] in shingles
-    assert [[1, 8, 0, 'A'], [2, 3, 1, '😃'], [4, 7, 1, 'C'], [5, 6, 2, 'D']] in shingles
-    assert [[1, 8, 0, 'A'], [2, 3, 1, 'B'], [4, 7, 1, '😃'], [5, 6, 2, 'D']] in shingles
-    assert [[1, 8, 0, 'A'], [2, 3, 1, 'B'], [4, 7, 1, 'C'], [5, 6, 2, '😃']] in shingles
+    assert [[1, 8, 0, '😃'], [2, 3, 1, 'B'],
+            [4, 7, 1, 'C'], [5, 6, 2, 'D']] in shingles
+    assert [[1, 8, 0, 'A'], [2, 3, 1, '😃'],
+            [4, 7, 1, 'C'], [5, 6, 2, 'D']] in shingles
+    assert [[1, 8, 0, 'A'], [2, 3, 1, 'B'],
+            [4, 7, 1, '😃'], [5, 6, 2, 'D']] in shingles
+    assert [[1, 8, 0, 'A'], [2, 3, 1, 'B'],
+            [4, 7, 1, 'C'], [5, 6, 2, '😃']] in shingles
     # replace 2/4
     assert [[1, 4, 0, '😃'], [2, 3, 1, 'D']] in shingles
     assert [[1, 4, 0, 'C'], [2, 3, 1, '😃']] in shingles
