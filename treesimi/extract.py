@@ -5,6 +5,36 @@ DATA = Union[int, float, str, dict, list, tuple]
 
 def remove_node_ids(nested: List[Tuple[int, int, int, int, DATA]]
                     ) -> List[Tuple[int, int, int, DATA]]:
+    """Remove the node IDs in the 1st column from the nested set table
+
+    Parameters:
+    -----------
+    nested : List[Tuple[int, int, int, int, DATA]]
+        Nested set table of the tree. The columns contain the following
+          information:
+            0: Node ID <= TO BE DELETED
+            1: Left value (root is 1)
+            2: Right value
+            3: Depth level (root is 0)
+            4: Attributes related to the node ID
+
+    Returns:
+    --------
+    nested : List[Tuple[int, int, int, int, DATA]]
+        Nested set table of the tree. The columns contain the following
+          information:
+            0: Left value (root is 1)
+            1: Right value
+            2: Depth level (root is 0)
+            3: Attributes related to the node ID
+
+    Example:
+    --------
+        import treesimi as ts
+        nested = [[1, 1, 8, 0, 'a'], [2, 2, 5, 1, 'b'],
+                  [4, 3, 4, 2, 'd'], [3, 6, 7, 1, 'c']]
+        nested = ts.remove_node_ids(nested)
+    """
     return [[l, r, d, a] for _, l, r, d, a in nested]
 
 
@@ -12,6 +42,18 @@ def extract_subtrees(nested: List[Tuple[int, int, int, DATA]]
                      ) -> List[List[Tuple[int, int, int, DATA]]]:
     """Extracting full subtrees from a nested set tables is
         basically O(n) copy & paste
+
+    Parameters:
+    -----------
+    nested : List[Tuple[int, int, int, int, DATA]]
+        Nested set table of the tree. The columns contain the following
+          information:
+            0: Left value (root is 1)
+            1: Right value
+            2: Depth level (root is 0)
+            3: Attributes related to the node ID
+        Please note, that you need to remove the node IDs beforehand,
+          e.g. use `treesimi.remove_node_ids`
     """
     subtrees = []
     for lft0, rgt0, dep0, _ in nested:
@@ -25,6 +67,18 @@ def extract_subtrees(nested: List[Tuple[int, int, int, DATA]]
 def trunc_leaves(nested: List[Tuple[int, int, int, DATA]]
                  ) -> List[List[Tuple[int, int, int, DATA]]]:
     """Reduce depth level to truncate leaves to create (incomplete) trees
+
+    Parameters:
+    -----------
+    nested : List[Tuple[int, int, int, int, DATA]]
+        Nested set table of the tree. The columns contain the following
+          information:
+            0: Left value (root is 1)
+            1: Right value
+            2: Depth level (root is 0)
+            3: Attributes related to the node ID
+        Please note, that you need to remove the node IDs beforehand,
+          e.g. use `treesimi.remove_node_ids`
     """
     max_depth = max([d for _, _, d, _ in nested])
     subtrees = []
@@ -36,6 +90,18 @@ def trunc_leaves(nested: List[Tuple[int, int, int, DATA]]
 def drop_nodes(nested: List[Tuple[int, int, int, DATA]]
                ) -> List[List[Tuple[int, int, int, DATA]]]:
     """Drop each node once
+
+    Parameters:
+    -----------
+    nested : List[Tuple[int, int, int, int, DATA]]
+        Nested set table of the tree. The columns contain the following
+          information:
+            0: Left value (root is 1)
+            1: Right value
+            2: Depth level (root is 0)
+            3: Attributes related to the node ID
+        Please note, that you need to remove the node IDs beforehand,
+          e.g. use `treesimi.remove_node_ids`
     """
     subtrees = []
     for lft0, rgt0, _, _ in nested:
@@ -49,6 +115,18 @@ def replace_attr(nested: List[Tuple[int, int, int, DATA]],
                  placeholder: Optional[str] = '\uFFFF',
                  ) -> List[List[Tuple[int, int, int, DATA]]]:
     """Replace attribute field
+
+    Parameters:
+    -----------
+    nested : List[Tuple[int, int, int, int, DATA]]
+        Nested set table of the tree. The columns contain the following
+          information:
+            0: Left value (root is 1)
+            1: Right value
+            2: Depth level (root is 0)
+            3: Attributes related to the node ID
+        Please note, that you need to remove the node IDs beforehand,
+          e.g. use `treesimi.remove_node_ids`
     """
     subtrees = []
     for i in range(len(nested)):
