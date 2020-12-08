@@ -39,3 +39,13 @@ def test3():
     assert [4, 3, 4, 2] in nested
     assert [3, 6, 7, 1] in nested
     assert len(nested) == 4
+
+
+def test4():
+    nested = [[i, None, None, None] for i in range(1, 5)]
+    attrs = [(1, 'A'), (2, 'B'), (3, 'C'), (4, 'D')]
+    nested2 = ts.set_attr(nested, attrs)
+    assert [1, None, None, None, 'A'] in nested2
+    assert [2, None, None, None, 'B'] in nested2
+    assert [3, None, None, None, 'C'] in nested2
+    assert [4, None, None, None, 'D'] in nested2

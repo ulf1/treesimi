@@ -28,11 +28,21 @@ def adjac_to_nested_recur(adjac: List[Tuple[int, int]],
     depth : int
         The current tree depth
 
-    nested : List[Tuple[int, int, int]]
-        Nested set table of the tree. The 1st column hold the node
-          IDs, the 2nd column are the "left" values, in the 3rd column
-          are the "right" values, and the 4th column the node's depth
-          level.
+    nested: List[Tuple[int, int, int, int]]
+        see below
+
+    Returns:
+    --------
+    rgt + 1 : int
+        The next node's left value
+
+    nested : List[Tuple[int, int, int, int]]
+        Nested set table of the tree. The columns contain the following
+          information: 
+            0: Node ID
+            1: Left value (root is 1)
+            2: Right value
+            3: Depth level (root is 0)
 
     Example:
     --------
@@ -69,11 +79,13 @@ def adjac_to_nested(adjac: List[Tuple[int, int]],
 
     Return:
     -------
-    nested : List[Tuple[int, int, int]]
-        Nested set table of the tree. The 1st column hold the node
-          IDs, the 2nd column are the "left" values, in the 3rd column
-          are the "right" values, and the 4th column the node's depth
-          level.
+    nested : List[Tuple[int, int, int, int]]
+        Nested set table of the tree. The columns contain the following
+          information: 
+            0: Node ID
+            1: Left value (root is 1)
+            2: Right value
+            3: Depth level (root is 0)
 
     Example:
     --------
@@ -123,6 +135,41 @@ def set_attr(nested: List[Tuple[int, int, int, int]],
              attr: List[Tuple[int, DATA]]
              ) -> List[Tuple[int, int, int, int, DATA]]:
     """Join a data column to the nested set table
+
+    Parameters:
+    -----------
+    nested : List[Tuple[int, int, int, int]]
+        Nested set table of the tree. The columns contain the following
+          information: 
+            0: Node ID
+            1: Left value (root is 1)
+            2: Right value
+            3: Depth level (root is 0)
+
+    attr : List[Tuple[int, DATA]]
+        A list of node IDs and their data attributes. The columns contain the
+          the following information:
+            0: Node ID
+            4: Attributes related to the node ID
+
+    Returns:
+    --------
+    nested : List[Tuple[int, int, int, int, DATA]]
+        Nested set table of the tree. The columns contain the following
+          information: 
+            0: Node ID
+            1: Left value (root is 1)
+            2: Right value
+            3: Depth level (root is 0)
+            4: Attributes related to the node ID
+
+    Example:
+    --------
+        import treesimi as ts
+        nested = [[1, None, None, None], [2, None, None, None]]
+        attrs = [(1, 'A'), (2, 'B')]
+        nested2 = ts.set_attr(nested, attrs)
+        # [[1, None, None, None, 'A'], [2, None, None, None, 'B']]
     """
     # Add empty 4th column for attributes if not exist
     if len(nested[0]) == 4:
