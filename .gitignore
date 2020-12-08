@@ -108,3 +108,4 @@ venv.bak/
 .vscode
 data
 .theia
+.git/**.py
