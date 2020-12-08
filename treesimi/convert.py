@@ -11,6 +11,8 @@ def adjac_to_nested_recur(adjac: List[Tuple[int, int]],
     """Recursive function to traverse over an adjacency list model based
         tree to build the nested set model based tree
 
+    Don't use this function directly. Please call `treesimi.adjac_to_nested`
+
     Parameters:
     -----------
     adjac : List[Tuple[int, int]]
