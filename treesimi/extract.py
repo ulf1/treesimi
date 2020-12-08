@@ -128,7 +128,7 @@ def drop_nodes(nested: List[Tuple[int, int, int, DATA]]
             3: Attributes related to the node ID
         Please note, that you need to remove the node IDs beforehand,
           e.g. use `treesimi.remove_node_ids`
-    
+
     Returns:
     --------
     List[List[Tuple[int, int, int, DATA]]]
