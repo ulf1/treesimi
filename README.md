@@ -130,90 +130,17 @@ subtrees = ts.replace_attr(nested, placeholder='[MASK]')
 # ]
 ```
 
-## Demo: Create subtrees as shingle sets
+## Demo Notebooks about Shingling for MinHash
+- [Create subtrees as shingle sets](https://github.com/ulf1/treesimi/blob/master/demo/Create%20subtrees%20as%20shingle%20sets.ipynb)
+- [Jaccard Similarity between Dependency Trees](https://github.com/ulf1/treesimi/blob/master/demo/Jaccard%20Similarity%20between%20Dependency%20Trees.ipynb)
+- [Shingle Dependency Trees for datasketch's Minhash](https://github.com/ulf1/treesimi/blob/master/demo/Shingle%20Dependency%20Trees%20for%20datasketch's%20Minhash.ipynb)
 
-```sh
-mkdir data
-wget -O "data/de_hdt-ud-dev.conllu" "https://raw.githubusercontent.com/UniversalDependencies/UD_German-HDT/master/de_hdt-ud-dev.conllu"
-pip install conllu
+Start jupyter to run the demo notebook
+
 ```
-
-```py
-import conllu
-import treesimi as ts
-import copy
-
-# load dataset
-dat = conllu.parse(open("data/de_hdt-ud-dev.conllu").read())
-# adjacancy list model
-adjac = [(t['id'], t['head'], t['deprel']) for t in dat[1]]
-# convert to nested set mode
-nested = ts.adjac_to_nested_with_attr(adjac)
-nested = ts.remove_node_ids(nested)
-
-# Extract full subtrees
-trees = ts.extract_subtrees(nested)
-trees.append(nested)  # add original tree
-trees = ts.unique_trees(trees)
-print(f"#num subtrees: {len(trees)}")  # -> 13
-
-# Truncate leaves
-for tmp in copy.deepcopy(trees):
-    trees.extend(ts.trunc_leaves(tmp))
-
-trees = ts.unique_trees(trees)
-print(f"#num subtrees: {len(trees)}")  # -> 24
-
-# Drop nodes
-for tmp in copy.deepcopy(trees):
-    trees.extend(ts.drop_nodes(tmp))
-
-trees = ts.unique_trees(trees)
-print(f"#num subtrees: {len(trees)}")  # -> 118
-
-# Mask data attributes
-for tmp in copy.deepcopy(trees):
-    trees.extend(ts.replace_attr(tmp, placeholder='[MASK]'))
-
-trees = ts.unique_trees(trees)
-print(f"#num subtrees: {len(trees)}")  # -> 1204
+source .venv/bin/activate
+jupyter lab
 ```
-
-## Demo: datasketch example
-
-```sh
-pip install datasketch conllu
-```
-
-```py
-import conllu
-import treesimi as ts
-import datasketch
-import json
-
-# load dataset
-dat = conllu.parse(open("data/de_hdt-ud-dev.conllu").read())
-
-# generate shinglesets
-cfg = {'use_trunc_leaves': True, 'use_drop_nodes': False, 'use_replace_attr': False}
-mhash = []
-for i in (54, 51, 56, 57, 58):
-    adjac = [(t['id'], t['head'], t['deprel']) for t in dat[i]]
-    nested = ts.adjac_to_nested_with_attr(adjac)
-    nested = ts.remove_node_ids(nested)
-    shingled = ts.shingleset(nested, **cfg)
-    #hashed = [ts.to_hash(tree).hexdigest() for tree in shingled]
-    stringified = [json.dumps(tree).encode('utf-8') for tree in shingled]
-    m = datasketch.MinHash(num_perm=256)
-    for s in stringified:
-        m.update(s)
-    mhash.append(m)
-
-# compute Jaccard Similarities
-for i in range(len(mhash)):
-    print(mhash[0].jaccard(mhash[i]))
-```
-
 
 ## Appendix
 
@@ -228,12 +155,13 @@ pip install git+ssh://git@github.com/ulf1/treesimi.git
 ### Commands
 Install a virtual environment
 
-```
+```sh
 python3.6 -m venv .venv
 source .venv/bin/activate
 pip install --upgrade pip
 pip install -r requirements.txt --no-cache-dir
 pip install -r requirements-dev.txt --no-cache-dir
+pip install -r requirements-demo.txt --no-cache-dir
 ```
 
 (If your git repo is stored in a folder with whitespaces, then don't use the subfolder `.venv`. Use an absolute path without whitespaces.)
