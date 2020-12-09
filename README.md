@@ -228,12 +228,20 @@ pip install git+ssh://git@github.com/ulf1/treesimi.git
 ### Commands
 Install a virtual environment
 
-```
+```sh
 python3.6 -m venv .venv
 source .venv/bin/activate
 pip install --upgrade pip
 pip install -r requirements.txt --no-cache-dir
 pip install -r requirements-dev.txt --no-cache-dir
+```
+
+For the demo notebooks run
+
+```
+source .venv/bin/activate
+pip install -r requirements-demo.txt --no-cache-dir
+jupyter lab
 ```
 
 (If your git repo is stored in a folder with whitespaces, then don't use the subfolder `.venv`. Use an absolute path without whitespaces.)
