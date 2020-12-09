@@ -130,9 +130,10 @@ subtrees = ts.replace_attr(nested, placeholder='[MASK]')
 # ]
 ```
 
-## Demo Notebooks
-- [Jaccard Similarity between Dependency Trees](https://github.com/ulf1/treesimi/blob/add-demos/demo/Jaccard%20Similarity%20between%20Dependency%20Trees.ipynb)
-- [Shingle Dependency Trees for datasketch's Minhash](https://github.com/ulf1/treesimi/blob/add-demos/demo/Shingle%20Dependency%20Trees%20for%20datasketch's%20Minhash.ipynb)
+## Demo Notebooks about Shingling for MinHash
+- [Create subtrees as shingle sets](https://github.com/ulf1/treesimi/blob/master/demo/Create%20subtrees%20as%20shingle%20sets.ipynb)
+- [Jaccard Similarity between Dependency Trees](https://github.com/ulf1/treesimi/blob/master/demo/Jaccard%20Similarity%20between%20Dependency%20Trees.ipynb)
+- [Shingle Dependency Trees for datasketch's Minhash](https://github.com/ulf1/treesimi/blob/master/demo/Shingle%20Dependency%20Trees%20for%20datasketch's%20Minhash.ipynb)
 
 Start jupyter to run the demo notebook
 
@@ -140,7 +141,6 @@ Start jupyter to run the demo notebook
 source .venv/bin/activate
 jupyter lab
 ```
-
 
 ## Appendix
 
