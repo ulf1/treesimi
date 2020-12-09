@@ -179,6 +179,16 @@ trees = ts.unique_trees(trees)
 print(f"#num subtrees: {len(trees)}")  # -> 1204
 ```
 
+## Demo Notebooks
+- [Jaccard Similarity between Dependency Trees](https://github.com/ulf1/treesimi/blob/add-demos/demo/Jaccard%20Similarity%20between%20Dependency%20Trees.ipynb)
+
+Start jupyter to run the demo notebook
+
+```
+source .venv/bin/activate
+jupyter lab
+```
+
 
 ## Appendix
 
@@ -199,14 +209,7 @@ source .venv/bin/activate
 pip install --upgrade pip
 pip install -r requirements.txt --no-cache-dir
 pip install -r requirements-dev.txt --no-cache-dir
-```
-
-For the demo notebooks run
-
-```
-source .venv/bin/activate
 pip install -r requirements-demo.txt --no-cache-dir
-jupyter lab
 ```
 
 (If your git repo is stored in a folder with whitespaces, then don't use the subfolder `.venv`. Use an absolute path without whitespaces.)
