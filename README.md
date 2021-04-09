@@ -140,7 +140,7 @@ subtrees = ts.replace_attr(nested, placeholder='[MASK]')
 
 Start jupyter to run the demo notebook
 
-```
+```sh
 source .venv/bin/activate
 jupyter lab
 ```
@@ -150,7 +150,7 @@ jupyter lab
 ### Installation
 The `treesimi` [git repo](http://github.com/ulf1/treesimi) is available as [PyPi package](https://pypi.org/project/treesimi)
 
-```
+```sh
 pip install treesimi
 pip install git+ssh://git@github.com/ulf1/treesimi.git
 ```
@@ -169,15 +169,15 @@ pip install -r requirements-demo.txt --no-cache-dir
 
 (If your git repo is stored in a folder with whitespaces, then don't use the subfolder `.venv`. Use an absolute path without whitespaces.)
 
-Python commands
+### Python commands
 
 * Check syntax: `flake8 --ignore=F401 --exclude=$(grep -v '^#' .gitignore | xargs | sed -e 's/ /,/g')`
 * Run Unit Tests: `pytest`
 * Upload to PyPi with twine: `python setup.py sdist && twine upload -r pypi dist/*`
 
-Clean up 
+### Clean up 
 
-```
+```sh
 find . -type f -name "*.pyc" | xargs rm
 find . -type d -name "__pycache__" | xargs rm -r
 rm -r .pytest_cache
