@@ -1,3 +1,5 @@
+__version__ = '0.1.2'
+
 from .convert import (
     adjac_to_nested, set_attr, get_subtree, adjac_to_nested_with_attr)
 from .extract import (
