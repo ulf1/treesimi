@@ -1,5 +1,7 @@
 [![PyPI version](https://badge.fury.io/py/treesimi.svg)](https://badge.fury.io/py/treesimi)
 [![DOI](https://zenodo.org/badge/318838452.svg)](https://zenodo.org/badge/latestdoi/318838452)
+[![treesimi](https://snyk.io/advisor/python/treesimi/badge.svg)](https://snyk.io/advisor/python/treesimi)
+
 
 # treesimi
 Compute similarity between trees, e.g. dependency trees
