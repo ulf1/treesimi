@@ -109,3 +109,4 @@ venv.bak/
 data
 .theia
 .git/**.py
+README.rst

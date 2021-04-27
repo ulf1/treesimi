@@ -23,7 +23,7 @@ def test1():
 def test2():
     adjac = [(1, 0), (2, 1), (3, 1), (4, 2)]
     _, nested = adjac_to_nested_recur(
-        adjac, parent_id=1, lft=1, depth=0, nested=[])
+        adjac, nested=[], parent_id=1, lft=1, depth=0)
     assert [4, 3, 4, 2] in nested
     assert [2, 2, 5, 1] in nested
     assert [3, 6, 7, 1] in nested
