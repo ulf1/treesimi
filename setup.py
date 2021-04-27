@@ -21,7 +21,7 @@ def get_version(path):
 setup(name='treesimi',
       version=get_version("treesimi/__init__.py"),
       description='Compute similarity between netsted set based trees.',
-      long_description=read('README.rst'),
+      # long_description=read('README.rst'),  # still not working
       url='http://github.com/ulf1/treesimi',
       author='Ulf Hamster',
       author_email='554c46@gmail.com',
