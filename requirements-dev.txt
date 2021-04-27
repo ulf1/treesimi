@@ -1,4 +1,5 @@
 # syntax check, unit test, profiling
+setuptools>=56.0.0
 flake8>=3.8.4
 pytest>=6.2.1
 twine==3.3.0

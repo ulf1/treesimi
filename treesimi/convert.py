@@ -3,10 +3,10 @@ DATA = Union[int, float, str, dict, list, tuple]
 
 
 def adjac_to_nested_recur(adjac: List[Tuple[int, int]],
+                          nested: List[Tuple[int, int, int, int]],
                           parent_id: Optional[int] = 0,
                           lft: Optional[int] = 1,
-                          depth: Optional[int] = 0,
-                          nested: List[Tuple[int, int, int, int]] = []
+                          depth: Optional[int] = 0
                           ) -> (int, List[Tuple[int, int, int, int]]):
     """Recursive function to traverse over an adjacency list model based
         tree to build the nested set model based tree
@@ -51,7 +51,7 @@ def adjac_to_nested_recur(adjac: List[Tuple[int, int]],
         from treesimi.convert import adjac_to_nested_recur
         adjac = [(1, 0), (2, 1), (3, 1), (4, 2)]
         _, nested = adjac_to_nested_recur(
-            adjac, parent_id=1, lft=1, depth=0, nested=[])
+            adjac, nested=[], parent_id=1, lft=1, depth=0)
     """
     # The next "rgt" value is at least "lft+1"
     rgt = lft + 1
@@ -60,7 +60,7 @@ def adjac_to_nested_recur(adjac: List[Tuple[int, int]],
     children = [nid for nid, pid in adjac if pid == parent_id]
     # Drill down till we reached each tree leaf
     for child in children:
-        rgt, _ = adjac_to_nested_recur(adjac, child, rgt, depth + 1, nested)
+        rgt, _ = adjac_to_nested_recur(adjac, nested, child, rgt, depth + 1)
     nested.append([parent_id, lft, rgt, depth])
     return rgt + 1, nested
 
@@ -104,7 +104,7 @@ def adjac_to_nested(adjac: List[Tuple[int, int]],
             break
     # start tree traversal
     _, nested = adjac_to_nested_recur(
-        adjac, parent_id=parent_id, lft=1, depth=0, nested=[])
+        adjac, nested=[], parent_id=parent_id, lft=1, depth=0)
     # sorted nested set table
     nested = sorted(nested, key=lambda r: r[1])
     # done
