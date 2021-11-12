@@ -187,7 +187,7 @@ def set_attr(nested: List[Tuple[int, int, int, int]],
 
 
 def adjac_to_nested_with_attr(adjac: List[Tuple[int, int, DATA]],
-                              skip_id_ranges: bool=True
+                              skip_id_ranges: bool = True
                               ) -> List[Tuple[int, int, int, int, DATA]]:
     """Convert Adjacancy List to Nested Set Table with data column
 
