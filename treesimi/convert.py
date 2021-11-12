@@ -199,7 +199,7 @@ def adjac_to_nested_with_attr(adjac: List[Tuple[int, int, DATA]],
             0: Node ID
             1: Parent ID of the node
             2: Attributes related to the node ID
-    
+
     skip_id_ranges : bool (Default: True)
         Ignore rows with id ranges, e.g. "5-6". see
     https://universaldependencies.org/format.html#words-tokens-and-empty-nodes
@@ -222,7 +222,7 @@ def adjac_to_nested_with_attr(adjac: List[Tuple[int, int, DATA]],
         nested = ts.adjac_to_nested_with_attr(adjac)
     """
     if skip_id_ranges:
-        adjac = [(i, p, m) for i, p, m in adjac 
+        adjac = [(i, p, m) for i, p, m in adjac
                  if not isinstance(i, (list, tuple))]
     nested = adjac_to_nested([(i, p) for i, p, _ in adjac])
     nested = set_attr(nested, [(i, d) for i, _, d in adjac])
