@@ -2,7 +2,7 @@
 
   * Bugfix: Skip ID ranges when reading conllu
 
-# 0.1.3 / 2020-04-23
+# 0.1.3 / 2021-04-23
 
   * Test multiple python versions
   * Installation problems: remove pandoc from setup.py
