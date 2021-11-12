@@ -1,3 +1,7 @@
+# 0.1.4 / 2021-11-12
+
+  * Bugfix: Skip ID ranges when reading conllu
+
 # 0.1.3 / 2020-04-23
 
   * Test multiple python versions
