@@ -1,3 +1,8 @@
+# 0.1.5 / 2021-11-28
+
+  * Bugfix: root_id as input arg for `adjac_to_nested_with_attr`
+  * Exception added in `adjac_to_nested_with_attr` if multiple root nodes exist
+
 # 0.1.4 / 2021-11-12
 
   * Bugfix: Skip ID ranges when reading conllu
