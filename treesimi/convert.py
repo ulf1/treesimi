@@ -187,7 +187,8 @@ def set_attr(nested: List[Tuple[int, int, int, int]],
 
 
 def adjac_to_nested_with_attr(adjac: List[Tuple[int, int, DATA]],
-                              skip_id_ranges: bool = True
+                              skip_id_ranges: bool = True,
+                              root_id: Optional[int] = 0
                               ) -> List[Tuple[int, int, int, int, DATA]]:
     """Convert Adjacancy List to Nested Set Table with data column
 
@@ -203,6 +204,9 @@ def adjac_to_nested_with_attr(adjac: List[Tuple[int, int, DATA]],
     skip_id_ranges : bool (Default: True)
         Ignore rows with id ranges, e.g. "5-6". see
     https://universaldependencies.org/format.html#words-tokens-and-empty-nodes
+
+    root_id : int = 0
+        In CoNLL-U the root is usually "0"
 
     Return:
     -------
@@ -224,6 +228,15 @@ def adjac_to_nested_with_attr(adjac: List[Tuple[int, int, DATA]],
     if skip_id_ranges:
         adjac = [(i, p, m) for i, p, m in adjac
                  if not isinstance(i, (list, tuple))]
-    nested = adjac_to_nested([(i, p) for i, p, _ in adjac])
+    # Parse 1 dependency tree
+    nested = adjac_to_nested([(i, p) for i, p, _ in adjac], root_id=root_id)
+    # thrown an error
+    if len(adjac) > len(nested):
+        raise Exception((
+            "The provided adjacency matrix has more nodes than the produced "
+            "nested set list. The most likely cause is that the adjaceny "
+            "matrix contains 2 or more root nodes."))
+    # Add the deprel attribute
     nested = set_attr(nested, [(i, d) for i, _, d in adjac])
+    # done
     return nested
