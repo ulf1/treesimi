@@ -2,6 +2,9 @@
   "creators": [{
     "name": "Ulf Hamster",
     "orcid": "0000-0002-0440-4868"
+  }, {
+    "name": "Luise Köhler",
+    "orcid": "0000-0001-5144-1920"
   }],
   "title": "treesimi: Shingling for measuring tree similarity",
   "description": "Extract, distort, and stringify subtrees as 'shingles'.",
