@@ -110,3 +110,4 @@ data
 .theia
 .git/**.py
 README.rst
+cache
