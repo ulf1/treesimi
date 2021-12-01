@@ -1,3 +1,7 @@
+# 0.1.6 / 2021-12-01
+
+  * Utility functions for using spacy, stanza and trankit as dependency parser
+
 # 0.1.5 / 2021-11-28
 
   * Bugfix: root_id as input arg for `adjac_to_nested_with_attr`
