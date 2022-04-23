@@ -1,4 +1,5 @@
 [![PyPI version](https://badge.fury.io/py/treesimi.svg)](https://badge.fury.io/py/treesimi)
+[![PyPi downloads](https://img.shields.io/pypi/dm/treesimi)](https://img.shields.io/pypi/dm/treesimi)
 [![DOI](https://zenodo.org/badge/318838452.svg)](https://zenodo.org/badge/latestdoi/318838452)
 [![treesimi](https://snyk.io/advisor/python/treesimi/badge.svg)](https://snyk.io/advisor/python/treesimi)
 [![Total alerts](https://img.shields.io/lgtm/alerts/g/ulf1/treesimi.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/ulf1/treesimi/alerts/)
