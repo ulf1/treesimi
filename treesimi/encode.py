@@ -1,8 +1,8 @@
 import json
 import hashlib
 from typing import List, Union
-ELEMENT = Union[int, float, str, dict, list, tuple]
 import struct
+ELEMENT = Union[int, float, str, dict, list, tuple]
 
 
 def to_hash(subtree: ELEMENT) -> hashlib.sha512:
@@ -23,4 +23,3 @@ def unique_trees(trees: List[ELEMENT]) -> List[ELEMENT]:
 
 def uint32_to_int32(i):  # i: np.uint32 -> np.int32
     return struct.unpack('<l', struct.pack('<I', i))[0]
-
