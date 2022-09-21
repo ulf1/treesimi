@@ -1,9 +1,7 @@
 [![PyPI version](https://badge.fury.io/py/treesimi.svg)](https://badge.fury.io/py/treesimi)
 [![PyPi downloads](https://img.shields.io/pypi/dm/treesimi)](https://img.shields.io/pypi/dm/treesimi)
 [![DOI](https://zenodo.org/badge/318838452.svg)](https://zenodo.org/badge/latestdoi/318838452)
-[![treesimi](https://snyk.io/advisor/python/treesimi/badge.svg)](https://snyk.io/advisor/python/treesimi)
-[![Total alerts](https://img.shields.io/lgtm/alerts/g/ulf1/treesimi.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/ulf1/treesimi/alerts/)
-[![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/ulf1/treesimi.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/ulf1/treesimi/context:python)
+
 
 # treesimi
 Compute similarity between trees, e.g. dependency trees
@@ -138,9 +136,9 @@ subtrees = ts.replace_attr(nested, placeholder='[MASK]')
 ```
 
 ## Demo Notebooks about Shingling for MinHash
-- [Create subtrees as shingle sets](https://github.com/ulf1/treesimi/blob/master/demo/Create%20subtrees%20as%20shingle%20sets.ipynb)
-- [Jaccard Similarity between Dependency Trees](https://github.com/ulf1/treesimi/blob/master/demo/Jaccard%20Similarity%20between%20Dependency%20Trees.ipynb)
-- [Shingle Dependency Trees for datasketch's Minhash](https://github.com/ulf1/treesimi/blob/master/demo/Shingle%20Dependency%20Trees%20for%20datasketch's%20Minhash.ipynb)
+- [Create subtrees as shingle sets](https://github.com/satzbeleg/treesimi/blob/master/demo/Create%20subtrees%20as%20shingle%20sets.ipynb)
+- [Jaccard Similarity between Dependency Trees](https://github.com/satzbeleg/treesimi/blob/master/demo/Jaccard%20Similarity%20between%20Dependency%20Trees.ipynb)
+- [Shingle Dependency Trees for datasketch's Minhash](https://github.com/satzbeleg/treesimi/blob/master/demo/Shingle%20Dependency%20Trees%20for%20datasketch's%20Minhash.ipynb)
 
 Start jupyter to run the demo notebook
 
@@ -152,11 +150,11 @@ jupyter lab
 ## Appendix
 
 ### Installation
-The `treesimi` [git repo](http://github.com/ulf1/treesimi) is available as [PyPi package](https://pypi.org/project/treesimi)
+The `treesimi` [git repo](http://github.com/satzbeleg/treesimi) is available as [PyPi package](https://pypi.org/project/treesimi)
 
 ```sh
 pip install treesimi
-pip install git+ssh://git@github.com/ulf1/treesimi.git
+pip install git+ssh://git@github.com/satzbeleg/treesimi.git
 ```
 
 ### Commands
@@ -197,8 +195,8 @@ rm -r .venv
 
 
 ### Support
-Please [open an issue](https://github.com/ulf1/treesimi/issues/new) for support.
+Please [open an issue](https://github.com/satzbeleg/treesimi/issues/new) for support.
 
 
 ### Contributing
-Please contribute using [Github Flow](https://guides.github.com/introduction/flow/). Create a branch, add commits, and [open a pull request](https://github.com/ulf1/treesimi/compare/).
+Please contribute using [Github Flow](https://guides.github.com/introduction/flow/). Create a branch, add commits, and [open a pull request](https://github.com/satzbeleg/treesimi/compare/).
