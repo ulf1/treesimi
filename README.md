@@ -136,6 +136,8 @@ subtrees = ts.replace_attr(nested, placeholder='[MASK]')
 ```
 
 ## Demo Notebooks about Shingling for MinHash
+We recommend using the `mmh3` hash function, and 32 permutations in `datasketch.MinHash`.
+
 - [Create subtrees as shingle sets](https://github.com/satzbeleg/treesimi/blob/master/demo/Create%20subtrees%20as%20shingle%20sets.ipynb)
 - [Jaccard Similarity between Dependency Trees](https://github.com/satzbeleg/treesimi/blob/master/demo/Jaccard%20Similarity%20between%20Dependency%20Trees.ipynb)
 - [Shingle Dependency Trees for datasketch's Minhash](https://github.com/satzbeleg/treesimi/blob/master/demo/Shingle%20Dependency%20Trees%20for%20datasketch's%20Minhash.ipynb)
@@ -161,7 +163,7 @@ pip install git+ssh://git@github.com/satzbeleg/treesimi.git
 Install a virtual environment
 
 ```sh
-python3.6 -m venv .venv
+python3 -m venv .venv
 source .venv/bin/activate
 pip install --upgrade pip
 pip install -r requirements.txt --no-cache-dir
