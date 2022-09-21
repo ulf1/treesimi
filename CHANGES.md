@@ -1,3 +1,7 @@
+# 0.2.0 / 2022-09-21
+
+  * repo moved to github.com/satzbeleg
+
 # 0.1.6 / 2021-12-01
 
   * Utility functions for using spacy, stanza and trankit as dependency parser

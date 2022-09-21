@@ -1,4 +1,4 @@
-__version__ = '0.1.6'
+__version__ = '0.2.0'
 
 from .convert import (
     adjac_to_nested,
@@ -15,7 +15,8 @@ from .extract import (
 )
 from .encode import (
     to_hash,
-    unique_trees
+    unique_trees,
+    uint32_to_int32
 )
 from .shingleset import shingleset
 
