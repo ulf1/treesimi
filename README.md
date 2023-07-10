@@ -3,7 +3,7 @@
 [![DOI](https://zenodo.org/badge/318838452.svg)](https://zenodo.org/badge/latestdoi/318838452)
 
 
-# treesimi
+# treesimi: Shingling for measuring tree similarity
 Compute similarity between trees, e.g. dependency trees
 
 
