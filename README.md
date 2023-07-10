@@ -138,9 +138,9 @@ subtrees = ts.replace_attr(nested, placeholder='[MASK]')
 ## Demo Notebooks about Shingling for MinHash
 We recommend using the `mmh3` hash function, and 32 permutations in `datasketch.MinHash`.
 
-- [Create subtrees as shingle sets](https://github.com/satzbeleg/treesimi/blob/master/demo/Create%20subtrees%20as%20shingle%20sets.ipynb)
-- [Jaccard Similarity between Dependency Trees](https://github.com/satzbeleg/treesimi/blob/master/demo/Jaccard%20Similarity%20between%20Dependency%20Trees.ipynb)
-- [Shingle Dependency Trees for datasketch's Minhash](https://github.com/satzbeleg/treesimi/blob/master/demo/Shingle%20Dependency%20Trees%20for%20datasketch's%20Minhash.ipynb)
+- [Create subtrees as shingle sets](https://github.com/ulf1/treesimi/blob/master/demo/Create%20subtrees%20as%20shingle%20sets.ipynb)
+- [Jaccard Similarity between Dependency Trees](https://github.com/ulf1/treesimi/blob/master/demo/Jaccard%20Similarity%20between%20Dependency%20Trees.ipynb)
+- [Shingle Dependency Trees for datasketch's Minhash](https://github.com/ulf1/treesimi/blob/master/demo/Shingle%20Dependency%20Trees%20for%20datasketch's%20Minhash.ipynb)
 
 Start jupyter to run the demo notebook
 
@@ -152,11 +152,11 @@ jupyter lab
 ## Appendix
 
 ### Installation
-The `treesimi` [git repo](http://github.com/satzbeleg/treesimi) is available as [PyPi package](https://pypi.org/project/treesimi)
+The `treesimi` [git repo](http://github.com/ulf1/treesimi) is available as [PyPi package](https://pypi.org/project/treesimi)
 
 ```sh
 pip install treesimi
-pip install git+ssh://git@github.com/satzbeleg/treesimi.git
+pip install git+ssh://git@github.com/ulf1/treesimi.git
 ```
 
 ### Commands
@@ -181,7 +181,6 @@ pip install -r requirements-demo.txt --no-cache-dir
 Publish
 
 ```sh
-pandoc README.md --from markdown --to rst -s -o README.rst
 python setup.py sdist 
 twine upload -r pypi dist/*
 ```
@@ -197,8 +196,16 @@ rm -r .venv
 
 
 ### Support
-Please [open an issue](https://github.com/satzbeleg/treesimi/issues/new) for support.
+Please [open an issue](https://github.com/ulf1/treesimi/issues/new) for support.
 
 
 ### Contributing
-Please contribute using [Github Flow](https://guides.github.com/introduction/flow/). Create a branch, add commits, and [open a pull request](https://github.com/satzbeleg/treesimi/compare/).
+Please contribute using [Github Flow](https://guides.github.com/introduction/flow/). Create a branch, add commits, and [open a pull request](https://github.com/ulf1/treesimi/compare/).
+
+
+### Acknowledgements
+The "Evidence" project was funded by the Deutsche Forschungsgemeinschaft (DFG, German Research Foundation) - [433249742](https://gepris.dfg.de/gepris/projekt/433249742) (GU 798/27-1; GE 1119/11-1).
+
+### Maintenance
+- till 31.Aug.2023 (v0.2.0) the code repository was maintained within the DFG project [433249742](https://gepris.dfg.de/gepris/projekt/433249742)
+- since 01.Sep.2023 (v0.3.0) the code repository is maintained by Ulf Hamster.
