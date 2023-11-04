@@ -3,3 +3,4 @@ datasketch>=1.5.1
 conllu>=4.2.1
 matplotlib>=3.3.3
 mmh3>=3.0.0
+pillow>=10.0.0 # not directly required, pinned by Snyk to avoid a vulnerability
